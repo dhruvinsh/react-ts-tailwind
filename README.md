@@ -1,27 +1,66 @@
-# React + TypeScript + Vite
+# Setup
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### How to setup a project with pnpm + Vite + React + Typescript + Tailwind CSS + postcss?
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```console
+pnpm create vite
+# go through the propmpts like
+# Project name: weather
+# Select a framework: react
+# Select a variant: typescript
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+In above example the directory called `weather` gets crated automatically.
+
+```console
+cd weather
+pnpm install
+pnpm run dev
+```
+
+At this point we have Dev server running with [[vite]] tooling.
+
+Installing Tailwind CSS as a PostCSS plugin is the most seamless way to integrate it with build tools like webpack, Rollup, Vite, and Parcel.
+
+```console
+pnpm add tailwindcss postcss autoprefixer
+pnpx tailwindcss init -p
+```
+
+Modify the `tailwind.config.js` file with below content
+
+```js
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+```
+
+And the `index.css` file with,
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+`postcss.config.js` file should have all the plugins populated automatically and should looks like as,
+
+```js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+```
+
+At this point `pnpm run dev` should work with [[Tailwind CSS]].
+
+Reference:
+
+- [Tailwind CSS Docs](https://tailwindcss.com/docs/installation/using-postcss)
+- [Larainfo](https://larainfo.com/blogs/install-setup-vite-react-typescript-tailwind-css-3)
